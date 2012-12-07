@@ -36,19 +36,48 @@
         border-top: 1px solid black;
       }
       
+      .errorlist {
+        width: 100%;
+        padding: 2px 9px;
+      }
+      .errorlist td:first-child {
+        width: 100px;
+      }
+      .errorlist td:last-child {
+        width: 460px;
+      }
+      .errorlist td {
+        border: 1px solid #999999;
+        padding: 5px;
+      }
+
       .subinfo {
         color: #777777;
+      }
+      
+      .btt {
+        position: fixed;
+        cursor: pointer;
+        bottom: 20px;
+        left: 830px;
+        background-color: #bbbbbb;
+        padding: 6px;
+        color: #000000;
+        text-decoration: underline;
       }
 
     </style>
   </head>
   <body>
-    <div id="wrapper">
+    <div class="btt" onclick="window.scrollTo(0,0);window.location.hash='';">Back To Top</div>
+    <a id="top">
+      <div id="wrapper">
 <?php
-  $docgen = new JsonDocGen( '/var/www/html/SocialApiClient/Configuration.json' );
+  $docgen = new JsonDocGen( '/var/www/html/SocialApiClient/Configuration.json', '/var/www/html/SocialApiClient/Errors.json' );
   $docgen->generate( );
 ?>
-    </div>
+      </div>
+    </a>
   </body>
 </html>
 

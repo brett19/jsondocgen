@@ -2,10 +2,12 @@
     class JsonDocGen
     {
       private $_jsonPath = '';
+      private $_errorsPath = '';
       
-      public function __construct( $jsonPath ) 
+      public function __construct( $jsonPath, $errorsPath ) 
       {
         $this->_jsonPath = $jsonPath;
+        $this->_errorsPath = $errorsPath;
       }
             
       public function generateVars( $params )
@@ -128,6 +130,32 @@
         echo "</a>\n";
       }
       
+      public function generateENamespace( $ns )
+      {
+        $href = $this->getTocName('ens',$ns['name']);
+        echo "<a id=\"$href\">\n";
+        echo "<h2>$ns[name]</h2>\n";
+        
+        echo "<table class=\"errorlist\">\n";
+        echo "<tr>";
+        echo "<th>Code</th>";
+        echo "<th>Name</th>";
+        echo "<th>Description</th>";
+        echo "</tr>";
+        if( isset($ns['codes']) ) {
+          foreach( $ns['codes'] as $er ) {
+            echo "<tr>";
+            echo "<td>$er[code]</td>";
+            echo "<td>$er[name]</td>";
+            echo "<td>$er[description]</td>";
+            echo "</tr>";
+          }
+        }
+        echo "</table>\n";
+        
+        echo "</a>\n";
+      }
+      
       public function getTocName( $type, $name ) {
         return str_replace(' ','_',$type.'_'.$name);
       }
@@ -152,6 +180,12 @@
         }
       }
       
+      public function generateENToc( $ns )
+      {
+        $href = $this->getTocName('ens',$ns['name']);
+        echo "<li><a href=\"#$href\">$ns[name]</a></li>\n";
+      }
+      
       public function generate( ) 
       {
         $jsonData = file_get_contents($this->_jsonPath);
@@ -159,21 +193,45 @@
         
         $jsonError = json_last_error();
         if( $jsonError != 0 ) {
-          die( "JSON Parser Error: $jsonError\n" );
+          die( "API JSON Parser Error: $jsonError\n" );
         }
         
-        echo "<h1>Platform API</h1>\n";
+        $errorData = file_get_contents($this->_errorsPath);
+        $errorSpec = json_decode($errorData, true);
         
-        echo "<h2>Table of Contents</h2>";
+        $jsonError = json_last_error();
+        if( $jsonError != 0 ) {
+          die( "Error JSON Parser Error: $jsonError\n" );
+        }
+    
+        echo "<h1>Table of Contents</h2>";
+        echo "<ul>\n";
+        echo "<li>Platform API</li>\n";
         echo "<ul>\n";
         foreach( $spec as $ns ) {
           $this->generateNamespaceToc( $ns );
         }
+        echo "</ul>\n";
         echo "</ul>";
+        echo "<ul>\n";
+        echo "<li>Error Codes</li>\n";
+        echo "<ul>\n";
+        foreach( $errorSpec as $ns ) {
+          $this->generateENToc( $ns );
+        }
+        echo "</ul>";
+        echo "</ul>";
+        echo "<br />";
         
-        echo "<h2>REST Endpoints</h2>";
+        echo "<h1>REST Endpoints</h2>";
         foreach( $spec as $ns ) {
           $this->generateNamespace( $ns );
+        }
+        echo "<br />";
+        
+        echo "<h1>Error Codes</h2>";
+        foreach( $errorSpec as $ns ) {
+          $this->generateENamespace( $ns );
         }
       }
     }
