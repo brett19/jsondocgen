@@ -30,6 +30,19 @@
         width: 800px;
       }
       
+      .toc ul {
+        margin: 0px;
+        padding: 0px 0px 0px 22px;
+      }
+      .toc ul li {
+        list-style-type: none;
+        margin: 2px 0px;
+        padding: 0px;
+      }
+      .toc ul li a {
+        color: #333333;
+      }
+      
       .paramblock {
         padding: 2px 9px;
       }

@@ -24,7 +24,7 @@
           }
           echo "<span class=\"subinfo\">";
           echo "[$param[type]]<br />";
-          echo "required<br />";
+          echo ((isset($param['optional'])&&$param['optional'])?'optional':'required') . "<br />";
           echo "</span>";
           echo "</td>\n";
           echo "<td>";
@@ -83,7 +83,7 @@
           if( isset($ep['respType']) && $ep['respType'] == 'list' ) {
             $this->generateVars(array(
               "_1" => array( 
-                "type" => "array",
+                "type" => "array(object)",
                 "subobj" => $ep['resp']
               )
             ));
@@ -214,9 +214,10 @@
           die( "Error JSON Parser Error: $jsonError\n" );
         }
     
+        echo "<div id=\"t_toc\" class=\"toc\">";
         echo "<h1>Table of Contents</h2>";
         echo "<ul>\n";
-        echo "<li><a href=\"#t_api\">Platform API</a></li>\n";
+        echo "<li><a href=\"#t_api\">REST Endpoints</a></li>\n";
         echo "<ul>\n";
         foreach( $spec as $ns ) {
           $this->generateNamespaceToc( $ns );
@@ -230,6 +231,7 @@
         echo "</ul>";
         echo "<li><a href=\"#t_deps\">Dependency Graph</a></li>\n";
         echo "</ul>";
+        echo "</div>\n";
         echo "<br />";
         
         echo "<div id=\"t_api\">\n";
