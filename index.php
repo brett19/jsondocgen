@@ -10,6 +10,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Platform API Documentation</title>
     <meta name="author" content="root" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/arta.min.css">
+    <script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
     <style type="text/css">
       body {
         font-family: Tahoma;
@@ -20,13 +23,21 @@
         width: 100%;
         padding: 4px;
       }
+      pre code {
+        margin: 2px 0px 0px 5px;
+      }
       #wrapper {
         width: 800px;
       }
       
+      .paramblock {
+        padding: 2px 9px;
+      }
       .paramlist {
         width: 100%;
-        padding: 2px 9px;
+      }
+      .paramlist td {
+        vertical-align: top;
       }
       .paramlist td:first-child {
         width: 100px;
@@ -67,17 +78,27 @@
       }
 
     </style>
+    <script type="text/javascript">
+$(document).ready(function() {
+  $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+});
+    </script>
   </head>
   <body>
     <div class="btt" onclick="window.scrollTo(0,0);window.location.hash='';">Back To Top</div>
-    <a id="top">
-      <div id="wrapper">
+    <div id="wrapper" id="top">
+      <h1>Dependancies</h1>
+      
 <?php
-  $docgen = new JsonDocGen( '/var/www/html/SocialApiClient/Configuration.json', '/var/www/html/SocialApiClient/Errors.json' );
+  $opts = array(
+    'config' => '/var/www/html/SocialApiClient/Configuration.json',
+    'errors' => '/var/www/html/SocialApiClient/Errors.json',
+    'deps' => '/var/www/html/SocialApiClient/deps.png'
+  );
+  $docgen = new JsonDocGen( $opts );
   $docgen->generate( );
 ?>
-      </div>
-    </a>
+    </div>
   </body>
 </html>
 
