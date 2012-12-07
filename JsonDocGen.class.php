@@ -66,6 +66,7 @@
         echo "$ep[description]<br />\n";
         echo "<br />";
         echo "<span class=\"subinfo\"><b>Implemented:</b> " . ((!isset($ep['implemented'])||$ep['implemented'])?'Yes':'No') . "</span><br />\n";
+        echo "<span class=\"subinfo\"><b>Authenticated:</b> " . ((isset($ep['authenticated'])&&$ep['authenticated'])?'Yes':'No') . "</span><br />\n";
         
         echo "<h4> <i>$ep[method]</i> $ep[uri] </h4>\n";
 
