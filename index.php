@@ -104,9 +104,9 @@ $(document).ready(function() {
       
 <?php
   $opts = array(
-    'config' => '/var/www/html/SocialApiClient/Configuration.json',
-    'errors' => '/var/www/html/SocialApiClient/Errors.json',
-    'deps' => '/var/www/html/SocialApiClient/deps.png'
+    'config' => 'socialapidocs/Configuration.json',
+    'errors' => 'socialapidocs/Errors.json',
+    'deps' => 'socialapidocs/deps.png'
   );
   $docgen = new JsonDocGen( $opts );
   $docgen->generate( );

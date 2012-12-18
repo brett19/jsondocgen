@@ -252,7 +252,7 @@
         
         echo "<div id=\"t_deps\">\n";
         echo "<h1>Dependency Graph</h2>";
-        $depimg = base64_encode(file_get_contents('/var/www/html/SocialApiClient/deps.png'));
+        $depimg = base64_encode(file_get_contents($this->_depsPath));
         echo "<img src=\"data:image/png;base64,$depimg\" />";
         echo "</div>";
         echo "<br />";
