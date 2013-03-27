@@ -28,7 +28,7 @@
           echo "</span>";
           echo "</td>\n";
           echo "<td>";
-          if( isset($param[description]) ) {
+          if( isset($param['description']) ) {
             echo "$param[description]<br />";
           }
           if( isset($param['example']) ) {
