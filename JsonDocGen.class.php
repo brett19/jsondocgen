@@ -25,6 +25,9 @@
           echo "<span class=\"subinfo\">";
           echo "[$param[type]]<br />";
           echo ((isset($param['optional'])&&$param['optional'])?'optional':'required') . "<br />";
+          if( isset($param['deprecated']) && $param['deprecated'] ) {
+            echo "<b>Deprecated</b><br />\n";
+          }
           echo "</span>";
           echo "</td>\n";
           echo "<td>";
@@ -65,6 +68,9 @@
         echo "<br />";
         echo "<span class=\"subinfo\"><b>Implemented:</b> " . ((!isset($ep['implemented'])||$ep['implemented'])?'Yes':'No') . "</span><br />\n";
         echo "<span class=\"subinfo\"><b>Authenticated:</b> " . ((isset($ep['authenticated'])&&$ep['authenticated'])?'Yes':'No') . "</span><br />\n";
+        if( isset($ep['deprecated']) && $ep['deprecated'] ) {
+          echo "<span class=\"subinfo\"><b>Deprecated</b></span><br />\n";
+        }
         
         echo "<h4> <i>$ep[method]</i> $ep[uri] </h4>\n";
 
